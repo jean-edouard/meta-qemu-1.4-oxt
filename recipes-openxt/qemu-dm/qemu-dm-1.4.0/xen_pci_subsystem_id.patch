@@ -1,0 +1,15 @@
+Index: qemu-1.4.0/hw/pci/pci.c
+===================================================================
+--- qemu-1.4.0.orig/hw/pci/pci.c	2015-02-19 16:18:30.096320637 -0500
++++ qemu-1.4.0/hw/pci/pci.c	2015-02-19 16:19:11.171568974 -0500
+@@ -82,8 +82,8 @@
+ static int pci_add_option_rom(PCIDevice *pdev, bool is_default_rom);
+ static void pci_del_option_rom(PCIDevice *pdev);
+ 
+-static uint16_t pci_default_sub_vendor_id = PCI_SUBVENDOR_ID_REDHAT_QUMRANET;
+-static uint16_t pci_default_sub_device_id = PCI_SUBDEVICE_ID_QEMU;
++static uint16_t pci_default_sub_vendor_id = PCI_VENDOR_ID_XEN;
++static uint16_t pci_default_sub_device_id = 0x0001;
+ 
+ struct PCIHostBus {
+     int domain;
