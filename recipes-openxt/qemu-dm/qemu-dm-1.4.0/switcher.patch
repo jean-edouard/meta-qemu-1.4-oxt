@@ -63,12 +63,13 @@
      if (QTAILQ_EMPTY(&mouse_handlers)) {
 --- /dev/null
 +++ b/ui/xen-input.c
-@@ -0,0 +1,481 @@
+@@ -0,0 +1,492 @@
 +#include <linux/input.h>
 +#include <stdlib.h>
 +#include "ui/console.h"
 +#include "qemu-common.h"
 +#include "xen-input.h"
++#include "sysemu/sysemu.h"
 +
 +#define DEBUG_INPUT
 +
@@ -478,11 +479,21 @@
 +    }
 +}
 +
++static void xen_input_wakeup(void)
++{
++    if (runstate_check(RUN_STATE_SUSPENDED)) {
++        qemu_system_wakeup_request(QEMU_WAKEUP_REASON_OTHER);
++    } else {
++        DEBUG_MSG("wakeup requested but state != suspended\n");
++    }
++}
++
 +const struct dmbus_ops input_ops = {
 +    .dom0_input_event = input_event,
 +    .reconnect = input_reconnect,
 +    .input_config = xen_input_config,
 +    .input_config_reset = xen_input_config_reset,
++    .input_wakeup = xen_input_wakeup,
 +};
 +
 +void xen_input_init(void)

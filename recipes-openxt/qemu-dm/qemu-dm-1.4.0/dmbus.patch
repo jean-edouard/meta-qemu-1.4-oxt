@@ -47,7 +47,7 @@
  if ! has "$pkg_config_exe"; then
 --- /dev/null
 +++ b/xen-dmbus.c
-@@ -0,0 +1,354 @@
+@@ -0,0 +1,361 @@
 +#include <libv4v.h>
 +#include <libdmbus.h>
 +
@@ -127,6 +127,13 @@
 +
 +        if (s->ops->input_config_reset) {
 +            s->ops->input_config_reset(s->opaque, msg->slot);
++        }
++        break;
++    }
++    case DMBUS_MSG_INPUT_WAKEUP:
++    {
++        if (s->ops->input_wakeup) {
++            s->ops->input_wakeup();
 +        }
 +        break;
 +    }
@@ -404,7 +411,7 @@
 +}
 --- /dev/null
 +++ b/xen-dmbus.h
-@@ -0,0 +1,28 @@
+@@ -0,0 +1,29 @@
 +#ifndef XEN_DMBUS_H_
 +# define XEN_DMBUS_H_
 +
@@ -418,6 +425,7 @@
 +  void (*dom0_input_pvm)(void *opaque, uint32_t domid);
 +  void (*input_config)(void *opaque, InputConfig *c);
 +  void (*input_config_reset)(void *opaque, uint8_t slot);
++  void (*input_wakeup)(void);
 +  void (*display_info)(void *opaque, uint8_t DisplayID, uint16_t max_xres,
 +                       uint16_t max_yres, uint16_t align);
 +  void (*display_edid)(void *opaque, uint8_t DisplayID, uint8_t *buff);

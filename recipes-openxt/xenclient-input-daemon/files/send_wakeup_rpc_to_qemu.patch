@@ -1,0 +1,25 @@
+diff --git a/domains.c b/domains.c
+index 142b7e3..78d9ea3 100644
+--- a/domains.c
++++ b/domains.c
+@@ -898,6 +898,12 @@ void handle_switcher_shutdown(void *priv, struct msg_switcher_shutdown *msg, siz
+   warning("not reached");
+ }
+ 
++static void send_wakeup(struct domain *d)
++{
++    struct msg_input_wakeup msg;
++    input_wakeup(d->client, &msg, sizeof(msg));
++}
++
+ void domain_wake_from_s3(struct domain *d)
+ {
+     unsigned long s_state = 0;
+@@ -920,6 +926,7 @@ void domain_wake_from_s3(struct domain *d)
+             xc_set_hvm_param(xc_handle, d->domid, HVM_PARAM_ACPI_S_STATE, 0);
+         d->is_in_s3 = 0;
+         d->sstate = 5;
++        send_wakeup(d);
+     } else {
+         error("Failed to open xen control interface");
+     }
