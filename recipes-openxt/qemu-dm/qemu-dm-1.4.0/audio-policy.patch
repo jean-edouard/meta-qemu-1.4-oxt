@@ -1,3 +1,7 @@
+From: Jed <lejosnej@ainfosec.com>
+Date: Fri, 23 Jan 2015 16:54:42 -0500
+Subject: [PATCH] qemu: add a patch for OpenXT audio policy bits, with just the audio recording flag for now
+
 --- a/hw/ac97.c
 +++ b/hw/ac97.c
 @@ -23,6 +23,8 @@

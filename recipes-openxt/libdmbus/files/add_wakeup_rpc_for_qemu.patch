@@ -1,3 +1,7 @@
+From: Jed <lejosnej@ainfosec.com>
+Date: Wed, 4 Mar 2015 15:43:42 -0500
+Subject: [PATCH] add an RPC to wakeup qemu
+
 diff --git a/libdmbus/src/rpc_definitions.m4 b/libdmbus/src/rpc_definitions.m4
 index ea7f1f0..11f2e41 100644
 --- a/src/rpc_definitions.m4

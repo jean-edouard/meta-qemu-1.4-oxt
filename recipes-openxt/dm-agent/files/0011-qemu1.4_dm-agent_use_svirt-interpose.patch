@@ -1,3 +1,7 @@
+From: Jed <lejosnej@ainfosec.com>
+Date: Mon, 16 Feb 2015 14:38:42 -0500
+Subject: [PATCH] call svirt-interpose instead of qemu-dm-wrapper directly when not using a stubdom
+
 diff --git a/src/spawn.c b/src/spawn.c
 index 24b54e4..b4d3c9f 100644
 --- a/src/spawn.c
